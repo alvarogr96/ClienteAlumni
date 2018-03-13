@@ -17,8 +17,8 @@
 
 				var users = new XMLHttpRequest();
 
-				users.open('GET', 'http://localhost/AlumniFinal/public/index.php/users/usersInactive.json');
-				//users.open('GET', 'http://h2744356.stratoserver.net/alumni/AlumniFinal/public/index.php/users/users.json');
+				//users.open('GET', 'http://localhost/AlumniFinal/public/index.php/users/usersInactive.json');
+				users.open('GET', 'http://h2744356.stratoserver.net/alumni/AlumniFinal/public/index.php/users/usersInactive.json');
 
 				
 				users.send();
@@ -47,8 +47,8 @@
 				// Preparar respuesta
 				connection.onreadystatechange = response;
 				// Petición HTTP con POST
-				connection.open('POST', 'http://localhost/AlumniFinal/public/index.php/users/delete.json');
-				//connection.open('POST', 'http://h2744356.stratoserver.net/alumni/AlumniFinal/public/index.php/users/preCreate.json');
+				//connection.open('POST', 'http://localhost/AlumniFinal/public/index.php/users/delete.json');
+				connection.open('POST', 'http://h2744356.stratoserver.net/alumni/AlumniFinal/public/index.php/users/delete.json');
 				// Cabecera de la petición
 				connection.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				connection.setRequestHeader('Authorization', token);
@@ -75,12 +75,12 @@
 		
 
 			function GoPreRegister(){
-				window.location.href = "http://localhost/ClienteAlumni/prerregistro.php";
-				//window.location.href = "http://h2744356.stratoserver.net/alumni/ClienteAlumni/prerregistro.php";
+				//window.location.href = "http://localhost/ClienteAlumni/prerregistro.php";
+				window.location.href = "http://h2744356.stratoserver.net/alumni/ClienteAlumni/prerregistro.php";
 			}
 			function GoLists(){
-				window.location.href = "http://localhost/ClienteAlumni/lists.php";
-				//window.location.href = "http://h2744356.stratoserver.net/alumni/ClienteAlumni/lists.php";
+				//window.location.href = "http://localhost/ClienteAlumni/lists.php";
+				window.location.href = "http://h2744356.stratoserver.net/alumni/ClienteAlumni/lists.php";
 
 			}
 
