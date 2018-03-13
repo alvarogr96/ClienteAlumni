@@ -21,6 +21,7 @@
 				console.log(userpass);
 				// Instanciar el objeto XMLHttpRequest
 				connection = new XMLHttpRequest();
+
 				// Preparar respuesta
 				connection.onreadystatechange = response;
 				// Petición HTTP con POST
@@ -37,6 +38,11 @@
 					if (response.code == 200){
 					location.href ="http://localhost/ClienteAlumni/users.php";
 					//location.href = "http://h2744356.stratoserver.net/alumni/ClienteAlumni/users.php";
+
+					console.log(response.data.token);
+
+					localStorage.setItem("token", response.data.token);
+
 					} else if (response.code == 400 || response.code == 500 ){
 					document.getElementById('code').innerHTML = response.code;
 					document.getElementById('message').innerHTML = response.message;

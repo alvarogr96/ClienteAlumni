@@ -13,29 +13,65 @@
 
 
 			function showUsers(){
+				
+
 				var users = new XMLHttpRequest();
 
 				users.open('GET', 'http://localhost/AlumniFinal/public/index.php/users/usersInactive.json');
 				//users.open('GET', 'http://h2744356.stratoserver.net/alumni/AlumniFinal/public/index.php/users/users.json');
+
+				
 				users.send();
 
 				users.onreadystatechange = function() {
     				if(users.readyState == 4){
-        				console.log("connection  == 4 ");
+        				
         				var response = JSON.parse(users.responseText);
-						console.log(response);
+						
 						response.forEach(function(a){
-							console.log("Element " + a["email"]);
-							//var node = document.createElement("LI");  
-							//var textnode = document.createTextNode(a["email"]); 
+							
 							var table = document.createElement('table');
-							//node.appendChild(textnode);
-							//document.getElementById('userList').appendChild(node);
-							document.getElementById('tableUsers').innerHTML += "<tr><th scope='row'>"+ a["id"] +"</th><td>"+ a["email"] +"</td><td>" + a["id_rol"] + "</td><td>" + a["active"] + "</td></tr>";
+							
+							document.getElementById('tableUsers').innerHTML += "<tr><th scope='row'>"+ a["id"] +"</th><td>"+ a["email"] +"</td><td>" + a["id_rol"] + "</td><td>" + a["active"] + "</td><td><button type='button' class='btn btn-danger btn-sm' onclick='deleteUser("+a["id"]+")'>Eliminar</button></td></tr>";
 						});
     				}	
 				}
 			}
+
+			function deleteUser(id){
+
+				var token = localStorage.getItem("token");
+				 console.log(token);
+
+				connection = new XMLHttpRequest();
+				// Preparar respuesta
+				connection.onreadystatechange = response;
+				// Petición HTTP con POST
+				connection.open('POST', 'http://localhost/AlumniFinal/public/index.php/users/delete.json');
+				//connection.open('POST', 'http://h2744356.stratoserver.net/alumni/AlumniFinal/public/index.php/users/preCreate.json');
+				// Cabecera de la petición
+				connection.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+				connection.setRequestHeader('Authorization', token);
+			
+				// Envío
+				connection.send("id=" + id);
+			}
+			function response(){
+				if (connection.readyState == 4) {
+					var response = JSON.parse(connection.responseText);
+					console.log(response);
+					if (response.code == 200){
+						window.location.reload();
+						//localStorage.setItem("token", response.data.token);
+						
+					} else if (response.code == 400 || response.code == 500 ){
+						document.getElementById('code').innerHTML = response.code;
+						document.getElementById('message').innerHTML = response.message;
+
+					}
+				}
+			}
+
 		
 
 			function GoPreRegister(){
@@ -73,6 +109,9 @@
 	<body>
 
 		<h1>Lista de usuarios</h1>
+
+		<p id="code"></p>
+		<p id="message"></p>
 
 	<table class="table table-striped table-bordered table-dark">
   <thead >

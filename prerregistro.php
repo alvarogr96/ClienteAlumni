@@ -13,11 +13,15 @@
 		<script type="text/javascript">
 			function ajax() {
 				var email = document.getElementById('email').value;
+				var token = localStorage.getItem("token");
 				//var username = document.getElementById('username').value;
-
+				var idList = document.getElementById('dropdownList').value;
+				var idRole = document.getElementById('dropdownRole').value;
 				console.log(email);
+				console.log(token);
 				//console.log(username);
 			
+				
 				// Instanciar el objeto XMLHttpRequest
 				connection = new XMLHttpRequest();
 				// Preparar respuesta
@@ -27,8 +31,11 @@
 				//connection.open('POST', 'http://h2744356.stratoserver.net/alumni/AlumniFinal/public/index.php/users/preCreate.json');
 				// Cabecera de la petición
 				connection.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+				connection.setRequestHeader('Authorization', token);
+				
 				// Envío
-				connection.send("email=" + email /*+ "&username=" + username*/);
+				connection.send("email=" + email + "&id_rol=" + idRole + "&id_list=" + idList);
 			}
 			function response(){
 				if (connection.readyState == 4) {
@@ -37,18 +44,63 @@
 					if (response.code == 200){
 						location.href ="http://localhost/ClienteAlumni/users.php";
 						//location.href = "http://h2744356.stratoserver.net/alumni/ClienteAlumni/users.php";
+						
 					} else if (response.code == 400 || response.code == 500 ){
 						document.getElementById('code').innerHTML = response.code;
 						document.getElementById('message').innerHTML = response.message;
+
 					}
 				}
 			}
+
+			function showGroups(){
+				var users = new XMLHttpRequest();
+
+				users.open('GET', 'http://localhost/AlumniFinal/public/index.php/lists/lists.json');
+				//users.open('GET', 'http://h2744356.stratoserver.net/alumni/AlumniFinal/public/index.php/users/users.json');
+				users.send();
+
+				users.onreadystatechange = function() {
+    				if(users.readyState == 4){
+        				console.log("connection  == 4 ");
+        				var response = JSON.parse(users.responseText);
+						console.log(response);
+						response.forEach(function(a){
+							console.log("Element " + a["title"]);
+							var table = document.createElement('table');
+							document.getElementById('dropdownList').innerHTML += "<option value="+ a["id"] +">"+ a["title"] +"</option>";
+						});
+    				}	
+				}
+			}
+
+			function showRoles(){
+				var users = new XMLHttpRequest();
+
+				users.open('GET', 'http://localhost/AlumniFinal/public/index.php/roles/roles.json');
+				//users.open('GET', 'http://h2744356.stratoserver.net/alumni/AlumniFinal/public/index.php/users/users.json');
+				users.send();
+
+				users.onreadystatechange = function() {
+    				if(users.readyState == 4){
+        				console.log("connection  == 4 ");
+        				var response = JSON.parse(users.responseText);
+						console.log(response);
+						response.forEach(function(a){
+							console.log("Element " + a["type"]); 
+							var table = document.createElement('table');
+			
+							document.getElementById('dropdownRole').innerHTML += "<option value="+ a["id"] +">"+ a["type"] +"</option>";
+						});
+    				}	
+				}
+			}
+
+			showGroups();
+			showRoles();
 		</script>
 
 		<style>
-			body{
-				margin-left: 40%;
-			}
 			.form-control{
 				width: 500px;
 				margin-bottom: 10px;
@@ -56,6 +108,16 @@
 			#btnCreate{
 				margin-top: 10px;
 			}
+			h1{
+				margin-left: 32%;
+			}
+			body
+			{
+				width: 500px;
+				margin-left: 35%;
+			}
+	
+			
 		</style>
 
 	</head>
@@ -70,22 +132,18 @@
 		<input type="text" class="form-control" id="email" placeholder="Email">
 
 		<div class="input-group mb-3">
-  			<select class="custom-select" id="inputGroupSelect02">
-    			<option selected>Profesor</option>
-    			<option value="1">Alumno</option>
-   				<option value="2">Ex alumno</option>
+  			<select class="custom-select" id="dropdownRole">
   			</select>
   			<div class="input-group-append">
     			<label class="input-group-text" for="inputGroupSelect02">Roles</label>
   			</div>
 		</div>
 
-		<div class="input-group mb-3">
-  			<select class="custom-select" id="inputGroupSelect02">
-    			<option selected>Apps2m</option>
-    			<option value="1">Apps1m</option>
-   				<option value="2">Ima1m</option>
-  			</select>
+		<div class="input-group mb-3" >
+			<select class='custom-select' id="dropdownList">
+
+			</select>	
+  			
   			<div class="input-group-append">
     			<label class="input-group-text" for="inputGroupSelect02">Groups</label>
   			</div>
