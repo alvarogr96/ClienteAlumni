@@ -25,8 +25,8 @@
 				// Preparar respuesta
 				connection.onreadystatechange = response;
 				// Petición HTTP con POST
-				//connection.open('GET', 'http://localhost/AlumniFinal/public/index.php/users/login.json?username=' + username + '&password=' + userpass);
-				connection.open('GET', 'http://h2744356.stratoserver.net/alumni/AlumniFinal/public/index.php/users/login.json?username=' + username + '&password=' + userpass);
+				connection.open('GET', 'http://localhost/AlumniFinal/public/index.php/users/login.json?username=' + username + '&password=' + userpass);
+				//connection.open('GET', 'http://h2744356.stratoserver.net/alumni/AlumniFinal/public/index.php/users/login.json?username=' + username + '&password=' + userpass);
 				// Cabecera de la petición
 				//connection.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 				// Envío
@@ -36,8 +36,8 @@
 				if (connection.readyState == 4) {
 					var response = JSON.parse(connection.responseText);
 					if (response.code == 200){
-					//location.href ="http://localhost/ClienteAlumni/users.php";
-					location.href = "http://h2744356.stratoserver.net/alumni/ClienteAlumni/users.php";
+					location.href ="http://localhost/ClienteAlumni/users.php";
+					//location.href = "http://h2744356.stratoserver.net/alumni/ClienteAlumni/users.php";
 
 					console.log(response.data.token);
 
