@@ -27,8 +27,8 @@
 				// Preparar respuesta
 				connection.onreadystatechange = response;
 				// Petición HTTP con POST
-				connection.open('POST', 'http://localhost/AlumniFinal/public/index.php/users/preCreate.json');
-				//connection.open('POST', 'http://h2744356.stratoserver.net/alumni/AlumniFinal/public/index.php/users/preCreate.json');
+				//connection.open('POST', 'http://localhost/AlumniFinal/public/index.php/users/preCreate.json');
+				connection.open('POST', 'http://h2744356.stratoserver.net/alumni/AlumniFinal/public/index.php/users/preCreate.json');
 				// Cabecera de la petición
 				connection.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
@@ -42,8 +42,8 @@
 					var response = JSON.parse(connection.responseText);
 					console.log(response);
 					if (response.code == 200){
-						location.href ="http://localhost/ClienteAlumni/users.php";
-						//location.href = "http://h2744356.stratoserver.net/alumni/ClienteAlumni/users.php";
+						//location.href ="http://localhost/ClienteAlumni/users.php";
+						location.href = "http://h2744356.stratoserver.net/alumni/ClienteAlumni/users.php";
 						
 					} else if (response.code == 400 || response.code == 500 ){
 						document.getElementById('code').innerHTML = response.code;
@@ -56,8 +56,8 @@
 			function showGroups(){
 				var users = new XMLHttpRequest();
 
-				users.open('GET', 'http://localhost/AlumniFinal/public/index.php/lists/lists.json');
-				//users.open('GET', 'http://h2744356.stratoserver.net/alumni/AlumniFinal/public/index.php/users/users.json');
+				//users.open('GET', 'http://localhost/AlumniFinal/public/index.php/lists/lists.json');
+				users.open('GET', 'http://h2744356.stratoserver.net/alumni/AlumniFinal/public/index.php/lists/lists.json');
 				users.send();
 
 				users.onreadystatechange = function() {
@@ -77,8 +77,8 @@
 			function showRoles(){
 				var users = new XMLHttpRequest();
 
-				users.open('GET', 'http://localhost/AlumniFinal/public/index.php/roles/roles.json');
-				//users.open('GET', 'http://h2744356.stratoserver.net/alumni/AlumniFinal/public/index.php/users/users.json');
+				//users.open('GET', 'http://localhost/AlumniFinal/public/index.php/roles/roles.json');
+				users.open('GET', 'http://h2744356.stratoserver.net/alumni/AlumniFinal/public/index.php/roles/roles.json');
 				users.send();
 
 				users.onreadystatechange = function() {
