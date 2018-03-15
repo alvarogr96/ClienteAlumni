@@ -17,8 +17,8 @@
 
 				var users = new XMLHttpRequest();
 
-				users.open('GET', 'http://localhost/AlumniFinal/public/index.php/users/usersInactive.json');
-				//users.open('GET', 'http://h2744356.stratoserver.net/alumni/AlumniFinal/public/index.php/users/users.json');
+				//users.open('GET', 'http://localhost/AlumniFinal/public/index.php/users/usersInactive.json');
+				users.open('GET', 'http://h2744356.stratoserver.net/alumni/AlumniFinal/public/index.php/users/usersInactive.json');
 
 				
 				users.send();
